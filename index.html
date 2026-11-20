@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS301L - Assignment 2</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 340px;
+      margin: 90px auto;
+      background-color: #ffffff;
+      padding: 24px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .search-box {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    input {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #5b8def;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #5b8def;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #4a7bd8;
+    }
+
+    p {
+      margin: 8px 0;
+      font-size: 14px;
+      color: #333333;
+    }
+
+    #card {
+      padding: 8px 10px;
+      background-color: #f8fafc;
+      border: 1px solid #e5e9f0;
+      border-radius: 4px;
+      min-height: 18px;
+    }
+
+    #times {
+      font-weight: bold;
+      color: #555555;
+    }
+
+    ul {
+      margin: 10px 0 0 0;
+      padding-left: 20px;
+      color: #333333;
+      font-size: 14px;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="search-box">
+      <input id="name" placeholder="Enter item name">
+      <button id="find">Find</button>
+    </div>
+
+    <p id="card"></p>
+    <p id="times">Times</p>
+    <ul id="slip"></ul>
+  </div>
+
+  <script>
+    const serverData = {
+      pen: 50
+    };
+
+    let clickCount = 0;
+
+    const findBtn = document.getElementById("find");
+    const nameInput = document.getElementById("name");
+    const cardEl = document.getElementById("card");
+    const timesEl = document.getElementById("times");
+    const slipList = document.getElementById("slip");
+
+    findBtn.addEventListener("click", function () {
+      const item = nameInput.value.trim();
+
+      clickCount++;
+      timesEl.textContent = clickCount;
+
+      if (serverData[item] !== undefined) {
+        cardEl.textContent = item + " : " + serverData[item];
+      } else {
+        cardEl.textContent = "Item not found";
+      }
+
+      if (item !== "") {
+        const li = document.createElement("li");
+        li.textContent = item;
+        slipList.appendChild(li);
+      }
+    });
+  </script>
+
+</body>
+</html>
